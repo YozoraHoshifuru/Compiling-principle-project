@@ -1,2 +1,3 @@
-# Compiling-principle-project
-编译原理项目课程
+# 编译原理项目课程
+
+作业内容见pdf
