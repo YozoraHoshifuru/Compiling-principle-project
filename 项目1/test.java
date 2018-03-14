@@ -44,7 +44,26 @@ public class test
 
     public static void main(String[] args) 
     {
-       readFileByLines("formula.txt");
+    	System.out.println("input 1 to make the correct formula");
+    	System.out.println("input 0 to make the error formula");
+
+    	Scanner sc = new Scanner(System.in);	
+    	int i = sc.nextInt();
+
+    	System.out.println("input the number of formula");
+    	int n = sc.nextInt();
+    	if (i == 1)	
+    	{
+    		FormulaMake formula_object = new FormulaMake();
+    		formula_object.make_correct_form(n);
+			readFileByLines("formula.txt");
+    	}
+    	else
+    	{
+    		FormulaMake formula_object = new FormulaMake();
+    		formula_object.make_error_form(n);
+			readFileByLines("formula.txt");
+    	}
     }
 }
 
@@ -298,4 +317,85 @@ class Check_Formula
 	    }
 	    return false;
 	}
+}
+
+class FormulaMake
+{
+
+
+    /*
+    * @param num 表达式个数
+    *
+    */
+    
+    public static void make_correct_form(int num_of_form)
+    {
+    	try
+    	{
+	    	PrintWriter out = new PrintWriter("formula.txt");
+	    	while (num_of_form-- > 0)
+	    	{
+		    	Random rand = new Random();
+		    	String result = "";
+		    	char[] c = {'+', '-', '*', '/'};  
+		    	int num_item = rand.nextInt(20) + 2;  // 表达式项数2到22
+
+		    	int num = rand.nextInt(500) + 1;
+		    	result = result + Integer.toString(num);
+		    	num_item--;
+		    		
+		    	while (num_item-- > 0)
+		    	{
+			    	int c_item = rand.nextInt(50) % 4;
+			    	char symbol = c[c_item];
+			    	num = rand.nextInt(500) + 1;
+			    	result = result + symbol + Integer.toString(num);
+		    	}
+		    	out.println(result);
+	    	}
+	    	out.close();
+    	}
+    	catch(IOException e)
+    	{}
+
+    }
+
+    public static void make_error_form(int num_of_form)
+    {
+    	try
+    	{
+	    	PrintWriter out = new PrintWriter("formula.txt");
+	    	while (num_of_form-- > 0)
+	    	{
+		    	Random rand = new Random();
+		    	String result = "";
+		    	char[] c = {'+', '-', '*', '/'};  
+		    	int num_item = rand.nextInt(20) + 2;  // 表达式项数2到22
+
+		    	while (num_item-- > 0)
+		    	{
+			    	int num = rand.nextInt(500) + 1;
+			    	int odd_or_even = rand.nextInt(10);
+
+			    	if (odd_or_even % 2 == 0)
+			    	{
+				    	result = result + Integer.toString(num);
+			    	}
+			    	else
+			    	{
+				    	int c_item = rand.nextInt(50) % 4;
+				    	char symbol = c[c_item];
+			    		result = result + symbol;
+			    	}
+
+		    	}
+		    	out.println(result);
+	    	}
+	    	out.close();
+    	}
+    	catch(IOException e)
+    	{}
+
+    }
+
 }
